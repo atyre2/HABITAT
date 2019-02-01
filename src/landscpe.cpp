@@ -1,6 +1,9 @@
-#include "landscpe.h"
-#include "habitat.h"
 #include <stdlib.h>
+#include "matrices.h"
+#include "util2019.h"
+#include "habitat.h"
+#include "landscpe.h"
+#include "gasdev.h"
 //---------------------------------------------------------------------------
 
 
@@ -138,7 +141,8 @@ void InitOffSet(Parameters *Pm)
             }
          break;
         default :
-                error("Bad sides parameter in InitOffSet");
+                break;
+                // error("Bad sides parameter in InitOffSet");
     }
 
    return;
@@ -167,15 +171,15 @@ int CheckForBoundary(LandScape *L, Location Where){
 
 LandScape *InitLandScape(Parameters *Pm, LParameters *LPm){
 /* this function creates a square empty landscape */
-    int i,j;
+    int i;
     LandScape *L = NULL;
-    char Message[80];
+//    char Message[80];
 //    unsigned int temp;
-    void *tempptr;
-   HQuality Value;
+//    void *tempptr;
+//   HQuality Value;
 
     if ((L = (LandScape *) malloc((size_t)sizeof(LandScape))) == NULL){
-        error("Insufficient Memory for Landscape");
+        // error("Insufficient Memory for Landscape");
     }
 
     /* initialize landscape parameters */
@@ -189,7 +193,7 @@ LandScape *InitLandScape(Parameters *Pm, LParameters *LPm){
     for (i=0; i<Pm->NumLayers; i++){
         if ((L->H[i] = (HQuality *)
                 malloc((size_t)sizeof(HQuality)*Pm->Xsize*Pm->Ysize+1)) == NULL){
-            error("Insufficient Memory for Habitat Layer");
+            // error("Insufficient Memory for Habitat Layer");
         }
         /* set habitat values to MeanVal */
         ClearLand(L->H[i],LPm->meanval[i],Pm);
@@ -207,7 +211,7 @@ LandScape *InitLandScape(Parameters *Pm, LParameters *LPm){
     /* Allocate Map Layer */
 //    temp = Pm->Xsize*Pm->Ysize+1;
     if ((L->Map = (LandCell *) malloc((size_t)sizeof(LandCell)*Pm->Xsize*Pm->Ysize+1)) == NULL){
-        error("Insufficient Memory for Map Layer");
+        // error("Insufficient Memory for Map Layer");
     }
 
     /* loop over map and set all pointers to zero */
@@ -218,7 +222,7 @@ LandScape *InitLandScape(Parameters *Pm, LParameters *LPm){
     /* initialize offset array */
     InitOffSet(Pm);
 
-   /* exit(0);   /* exit here for debugging new landscape functions */
+   // /* exit(0);   /* exit here for debugging new landscape functions */
 
     return L;
 }   /* end function InitLandScape */
@@ -256,7 +260,7 @@ Location GetNextCell(LandScape *L, Location Where){
    }while (New == 0);   /* keep looking for a direction that is valid */
     New += Where;
    if (New > L->Xsize*L->Ysize){
-        printf("oops\n");
+        // printf("oops\n");
    }
 
     return New;
@@ -264,7 +268,7 @@ Location GetNextCell(LandScape *L, Location Where){
 
 int GetCellinDir(LandScape *L, Location Where, int direction){
     /* get address of cell at direction from Where */
-   int a, b, c;
+   int a, c;
     int NewCell;
 
    a = CheckForBoundary(L,Where);   /* compute boundary position */
@@ -353,9 +357,9 @@ Location GetCell(LandScape *L, int force){
 //   return 0;
 // }
 
-float LayerStats(int run, int rep, int returntype, HQuality *H, int Xsize, int Ysize, FILE *out){
+float LayerStats(int run, int rep, int returntype, HQuality *H, int Xsize, int Ysize){
 /* calculates a variety of statistics about the landscape layer */
-    int i,j;
+    int i;
     long sum=0, sum2=0, N = Xsize * Ysize;
     int min = 101, max = 0, t;
     float mean, stddev, returnvalue;
@@ -411,12 +415,12 @@ int hqCompare(const void *e1,  const void *e2)
     if (*((int *) e1) < *((int *) e2)) return -1;
    else if (*((int *) e1) == *((int *) e2)) return 0;
    else if (*((int *) e1) > *((int *) e2)) return 1;
-
+  return 0;
 }
 
 
 
-double LayerCorr(HQuality *H1, HQuality *H2, int Xsize, int Ysize, FILE *out){
+double LayerCorr(HQuality *H1, HQuality *H2, int Xsize, int Ysize){
 /* computes the aspatial correlation between two layers */
     unsigned int i;
     unsigned long productsum = 0, sum1=0, sum2=0, N = Xsize * Ysize;
@@ -564,7 +568,7 @@ int MidPointFM2D(float **X, int maxlevel, float sigma, float H,
 
 */
 {
-    int i;
+//    int i;
     int N = (int) pow(2,maxlevel);  /* size of array being filled */
     int stage;
     float temp;
@@ -572,7 +576,7 @@ int MidPointFM2D(float **X, int maxlevel, float sigma, float H,
 
     float delta = sigma;    /* standard deviation */
 
-    int x, y, y0, D, d; /* array indexing variables */
+    int x, y, D, d; /* array indexing variables */
 
     /* declare interpolation functions */
     float f3(float delta, float x0, float x1, float x2);

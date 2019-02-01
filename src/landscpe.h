@@ -22,14 +22,14 @@ Location GetNextCell(LandScape *L, Location Where);
 int GetCellinDir(LandScape *L, Location Where, int direction);
 Location GetCell(LandScape *L, int force);
 int GetNeighbours(LandScape *L, Location Where, HQuality *hq, int Force);
-void printmap(LandScape *L);
-int LayerPrint(int run, int rep, HQuality *H, int Xsize, int Ysize, FILE *out);
-float LayerStats(int run, int rep, int returntype, HQuality *H, int Xsize, int Ysize, FILE *out);
-double LayerCorr(HQuality *H1, HQuality *H2, int Xsize, int Ysize, FILE *out);
+// void printmap(LandScape *L);
+// int LayerPrint(int run, int rep, HQuality *H, int Xsize, int Ysize, FILE *out);
+float LayerStats(int run, int rep, int returntype, HQuality *H, int Xsize, int Ysize);
+double LayerCorr(HQuality *H1, HQuality *H2, int Xsize, int Ysize);
 float Distance(LandScape *L, Location X1, Location X2);
 void TruncLand(HQuality **L, HQuality low[], HQuality high[], Parameters *Pm);
 void ClearLand(HQuality L[], HQuality value, Parameters *Pm);
-void WriteLand(HQuality **L, FILE *outfile, Parameters *Pm);
+// void WriteLand(HQuality **L, FILE *outfile, Parameters *Pm);
 
 
 #define A 0.5774

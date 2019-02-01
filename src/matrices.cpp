@@ -1,7 +1,8 @@
 //---------------------------------------------------------------------------
 
-#include "matrices.h"
+
 #include <stdlib.h>
+#include "matrices.h"
 
 #define NR_END 1
 #define FREE_ARG char*
