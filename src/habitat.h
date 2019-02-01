@@ -166,7 +166,7 @@ typedef struct LS LandScape;
 /* the functions that run the model! */
 // int init_model(Parameters *Pm, LParameters *LPm);
 // int init_run(Parameters *Pm, LParameters *LPm);
-// int init_rep(Parameters *Pm, LParameters *LPm);
+int init_rep(Parameters *Pm, LParameters *LPm);
 // int step_rep(Parameters *Pm, LParameters *LPm);
 // void load_parameters(Parameters *Pm, LParameters *LPm);
 // int close_rep(Parameters *Pm, LParameters *LPm);
