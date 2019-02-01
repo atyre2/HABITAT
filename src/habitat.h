@@ -18,6 +18,7 @@ Written by: Drew Tyre, Dept. of Environmental Science and Management,
 **********************************************************************/
 
 #include <math.h>
+#include "mt19937.h"
 /* Number of neighbors for different neighborhoods */
 #define ORTHO 4
 #define HEX 6
@@ -124,7 +125,7 @@ typedef unsigned int Location;
 struct Ind{
     struct Ind *PrevInd;
     struct Ind *NextInd;
-    int Age;    
+    int Age;
     int AgeClass;   /* this is the age class */
     enum SexType Sex;
     Location Where;
@@ -163,17 +164,17 @@ struct LS{
 typedef struct LS LandScape;
 
 /* the functions that run the model! */
-int init_model(Parameters *Pm, LParameters *LPm);
-int init_run(Parameters *Pm, LParameters *LPm);
-int init_rep(Parameters *Pm, LParameters *LPm);
-int step_rep(Parameters *Pm, LParameters *LPm);
-void load_parameters(Parameters *Pm, LParameters *LPm);
-int close_rep(Parameters *Pm, LParameters *LPm);
-int close_run(Parameters *Pm, LParameters *LPm);
+// int init_model(Parameters *Pm, LParameters *LPm);
+// int init_run(Parameters *Pm, LParameters *LPm);
+// int init_rep(Parameters *Pm, LParameters *LPm);
+// int step_rep(Parameters *Pm, LParameters *LPm);
+// void load_parameters(Parameters *Pm, LParameters *LPm);
+// int close_rep(Parameters *Pm, LParameters *LPm);
+// int close_run(Parameters *Pm, LParameters *LPm);
 
 /* STATE VARIABLES "published" by the habitat module */
 extern int TotalSize;
 
-#include "mt19937.h"
+
 //---------------------------------------------------------------------------
 #endif

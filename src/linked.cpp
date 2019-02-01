@@ -30,7 +30,7 @@ LinkList *InitList(void){
     NewList->Age = -1;					/* Age < 0 identifies the sentinel */
   }
   else{
-  	error("Insufficient Memory in InitList");
+  	// error("Insufficient Memory in InitList");
   }
   return NewList;
 }
