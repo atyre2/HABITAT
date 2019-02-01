@@ -169,7 +169,7 @@ typedef struct LS LandScape;
 extern "C" int init_rep(Parameters *Pm, LParameters *LPm);
 // int step_rep(Parameters *Pm, LParameters *LPm);
 // void load_parameters(Parameters *Pm, LParameters *LPm);
-// int close_rep(Parameters *Pm, LParameters *LPm);
+extern "C" int close_rep(Parameters *Pm, LParameters *LPm);
 // int close_run(Parameters *Pm, LParameters *LPm);
 
 /* STATE VARIABLES "published" by the habitat module */

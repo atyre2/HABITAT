@@ -29,7 +29,7 @@
 //             email: dtyre@roseworthy.adelaide.edu.au
 // *************************************************************************/
 #include <stdlib.h>
-// #include <stdio.h>
+#include <stdio.h>
 // #include <time.h>
 // #include <math.h>
 #include "util2019.h"
@@ -98,7 +98,7 @@ static LandScape *AdaBlock = NULL;
 // int Competitors[7] = {0};
 // /* setting numtypes > 1 ensures that runs with no competition will complete */
 // int numtypes = 6;
-// int iExtinct = 0;
+int iExtinct = 0;
 // float pcDDeaths = 0, pcADeaths = 0;
 float AvgHabitat = 0;
 //
@@ -116,13 +116,14 @@ float AvgHabitat = 0;
 // }
 //
 int init_rep(Parameters *Pm, LParameters *LPm){
-
+  int ret_val;
   if (((Pm->Run == 1)&&(Pm->Rep == 0)) || (Pm->NewLand))
   {
       AdaBlock = InitLandScape(Pm,LPm);
   }
-
-//  AvgHabitat = LayerStats(Pm->Run, Pm->Rep,Pm->Qpivot,AdaBlock->H[0],Pm->Xsize,Pm->Ysize);
+  printf("Landcapse initialized\n");
+  AvgHabitat = LayerStats(Pm->Run, Pm->Rep,Pm->Qpivot,AdaBlock->H[0],Pm->Xsize,Pm->Ysize);
+  printf("Avg Habitat: %f\n", AvgHabitat);
   // MakeDTrnsfrmTable(Pm, AvgHabitat);
   // MakeBTrnsfrmTable(Pm, AvgHabitat);
 
@@ -155,8 +156,9 @@ int init_rep(Parameters *Pm, LParameters *LPm){
   //     case RANDOMSAMPLE : RandomSites(AdaBlock,Pm); break;
   //     default : error("bad site sampling code in model()");
   // }
-
-  return 0;
+  ret_val = (int)floor(AvgHabitat);
+  printf("ret_val: %i", ret_val);
+  return ret_val;
 }
 //
 // int step_rep(Parameters *Pm, LParameters *LPm){
@@ -265,8 +267,8 @@ int init_rep(Parameters *Pm, LParameters *LPm){
 //
 // }   /* end model() */
 //
-// int close_rep(Parameters *Pm, LParameters *LPm)
-// {
+int close_rep(Parameters *Pm, LParameters *LPm)
+{
 //   /* If Population went extinct, report its size and structure */
 //   if (TotalSize <= Pm->QThreshold)
 //   {
@@ -329,9 +331,9 @@ int init_rep(Parameters *Pm, LParameters *LPm){
 //   /* remove population list */
 //   DestroyList(&Population);
 //
-//   /* destroy landscape on last run, or every run */
-//   if (Pm->NewLand)
-//     DestroyLandscape(&AdaBlock);
+  /* destroy landscape on last run, or every run */
+  if (Pm->NewLand)
+    DestroyLandscape(&AdaBlock);
 //
 // #ifdef DEBUG_IT
 //   printf("finished\n");
@@ -340,9 +342,9 @@ int init_rep(Parameters *Pm, LParameters *LPm){
 //  /* in an extinction distribution run, always return 0 */
 //   if (Pm->ExtinctTest) iExtinct = 0;
 //
-//   return iExtinct;
+  return iExtinct;
 //
-// }
+}
 //
 // int close_run(Parameters *Pm, LParameters *LPm)
 // {
