@@ -3,7 +3,7 @@
 // #include <vcl.h>
 // #pragma hdrstop
 
-#include "linked.h"
+
 
 //---------------------------------------------------------------------------
 
@@ -19,6 +19,7 @@ Written by: Drew Tyre, Dept. of Environmental Science and Management,
 *************************************************************************/
 #include <stdlib.h>
 #include "habitat.h"
+#include "linked.h"
 
 LinkList *InitList(void){
 /* create a doubly linked list of individuals with a sentinel */
