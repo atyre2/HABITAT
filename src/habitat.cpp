@@ -977,11 +977,11 @@ void MakeDTrnsfrmTable(Parameters *Pm, float HabitatPivot){
    }
    else
     {
-        // for(i=0;i<=Pm->MaxAgeClass;i++){
-        //     for(j=0;j<=MAXHAB;j++){
-        //         DTable[i][j] = Pm->DeathRate[i];
-        //     }
-        // }
+        for(i=0;i<Pm->MaxAgeClass;i++){
+            for(j=0;j<MAXHAB;j++){
+                temp = Pm->DeathRate[i];//DTable[i][j]; //=
+            }
+        }
     }
 
     printf("leaving MakeDTrnsfrmTable()");
