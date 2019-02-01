@@ -5,19 +5,19 @@
 
 using namespace Rcpp;
 
-// one
-float one();
-RcppExport SEXP _HABITAT_one() {
+// testrun
+int testrun();
+RcppExport SEXP _HABITAT_testrun() {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    rcpp_result_gen = Rcpp::wrap(one());
+    rcpp_result_gen = Rcpp::wrap(testrun());
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_HABITAT_one", (DL_FUNC) &_HABITAT_one, 0},
+    {"_HABITAT_testrun", (DL_FUNC) &_HABITAT_testrun, 0},
     {NULL, NULL, 0}
 };
 
