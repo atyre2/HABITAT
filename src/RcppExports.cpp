@@ -6,18 +6,20 @@
 using namespace Rcpp;
 
 // testrun
-int testrun();
-RcppExport SEXP _HABITAT_testrun() {
+int testrun(List rPm, List rLPm);
+RcppExport SEXP _HABITAT_testrun(SEXP rPmSEXP, SEXP rLPmSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    rcpp_result_gen = Rcpp::wrap(testrun());
+    Rcpp::traits::input_parameter< List >::type rPm(rPmSEXP);
+    Rcpp::traits::input_parameter< List >::type rLPm(rLPmSEXP);
+    rcpp_result_gen = Rcpp::wrap(testrun(rPm, rLPm));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_HABITAT_testrun", (DL_FUNC) &_HABITAT_testrun, 0},
+    {"_HABITAT_testrun", (DL_FUNC) &_HABITAT_testrun, 2},
     {NULL, NULL, 0}
 };
 

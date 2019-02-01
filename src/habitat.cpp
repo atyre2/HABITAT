@@ -70,8 +70,8 @@
 //     = {disperse0, disperse1, disperse2, disperse3, disperse4, NULL};
 //
 //
-// /* survival transformation functions and matrices */
-// void MakeDTrnsfrmTable(Parameters *Pm, float AvgHabitat);
+/* survival transformation functions and matrices */
+void MakeDTrnsfrmTable(Parameters *Pm, float AvgHabitat);
 // void MakeBTrnsfrmTable(Parameters *Pm, float AvgHabitat);
 // void DestroyTrnsfrmTable(float **Table);
 // void OutputSurvivalProb(Parameters *Pm, LandScape *L);
@@ -82,7 +82,7 @@
 // int SampleLocation =0;
 // int SampleReps[] = {0,95,75,94,92,74,59};   /* reps closest to average for each run */
 //
-// float DTable[MAXAGECLASS+1][MAXHAB+1];
+float DTable[MAXAGECLASS+1][MAXHAB+1];
 // float BTable[MAXAGECLASS+1][MAXHAB+1];
 //
 // /* variables previously in model() function, now global in scope for this module */
@@ -121,10 +121,10 @@ int init_rep(Parameters *Pm, LParameters *LPm){
   {
       AdaBlock = InitLandScape(Pm,LPm);
   }
-  printf("Landcapse initialized\n");
+  printf("Landscape initialized\n");
   AvgHabitat = LayerStats(Pm->Run, Pm->Rep,Pm->Qpivot,AdaBlock->H[0],Pm->Xsize,Pm->Ysize);
   printf("Avg Habitat: %f\n", AvgHabitat);
-  // MakeDTrnsfrmTable(Pm, AvgHabitat);
+  MakeDTrnsfrmTable(Pm, AvgHabitat);
   // MakeBTrnsfrmTable(Pm, AvgHabitat);
 
   /* put individuals on the landscape */
@@ -157,7 +157,7 @@ int init_rep(Parameters *Pm, LParameters *LPm){
   //     default : error("bad site sampling code in model()");
   // }
   ret_val = (int)floor(AvgHabitat);
-  printf("ret_val: %i", ret_val);
+  //printf("ret_val: %i", ret_val);
   return ret_val;
 }
 //
@@ -958,34 +958,35 @@ int close_rep(Parameters *Pm, LParameters *LPm)
 //     return killcount;
 // }
 //
-// void MakeDTrnsfrmTable(Parameters *Pm, float HabitatPivot){
-//     float curdeathrate;
-//     float temp;
-//     int i,j;
-//
-//     if (Pm->SurvSlope > 0.0001)
-//    {
-//         for(i=0;i<=Pm->MaxAgeClass;i++){
-//             curdeathrate = (float) log((double) Pm->DeathRate[i]/(1-Pm->DeathRate[i]));
-//             for(j=0;j<=MAXHAB;j++){
-//                 temp = -Pm->SurvSlope*(((float)j/HabitatPivot) - 1);    /* habitat values less than AVGHAB are positive */
-//                 temp += curdeathrate;           /* add in the transformed survival rate */
-//                 temp = (float) exp((double) temp);                  /* begin backtransformation */
-//                 DTable[i][j] = temp / (temp + 1);   /* complete backtransformation and store */
-//             }
-//         }
-//    }
-//    else
-//     {
-//         for(i=0;i<=Pm->MaxAgeClass;i++){
-//             for(j=0;j<=MAXHAB;j++){
-//                 DTable[i][j] = Pm->DeathRate[i];
-//             }
-//         }
-//     }
-//
-//     return;
-// }
+void MakeDTrnsfrmTable(Parameters *Pm, float HabitatPivot){
+    float curdeathrate;
+    float temp;
+    int i,j;
+  printf("Entering MakeDTrnsfrmTable()");
+    if (Pm->SurvSlope > 0.0001)
+   {
+        // for(i=0;i<=Pm->MaxAgeClass;i++){
+        //     curdeathrate = (float) log((double) Pm->DeathRate[i]/(1-Pm->DeathRate[i]));
+        //     for(j=0;j<=MAXHAB;j++){
+        //         temp = -Pm->SurvSlope*(((float)j/HabitatPivot) - 1);    /* habitat values less than AVGHAB are positive */
+        //         temp += curdeathrate;           /* add in the transformed survival rate */
+        //         temp = (float) exp((double) temp);                  /* begin backtransformation */
+        //         DTable[i][j] = temp / (temp + 1);   /* complete backtransformation and store */
+        //     }
+        // }
+   }
+   else
+    {
+        // for(i=0;i<=Pm->MaxAgeClass;i++){
+        //     for(j=0;j<=MAXHAB;j++){
+        //         DTable[i][j] = Pm->DeathRate[i];
+        //     }
+        // }
+    }
+
+    printf("leaving MakeDTrnsfrmTable()");
+    return;
+}
 //
 // void MakeBTrnsfrmTable(Parameters *Pm, float HabitatPivot){
 //     float curbirthrate;
