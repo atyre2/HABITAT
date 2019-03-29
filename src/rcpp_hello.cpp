@@ -17,6 +17,7 @@ int testrun(List rPm, List rLPm){
   LParameters LPm;
   int i, L1 = 0, L2;
   IntegerVector tmp (MAXLAYERS);
+  NumericVector ageparms (MAXAGECLASS);
 
   Pm.MaxReps = rPm["MaxReps"];
   LPm.fracvar = rLPm["fracvar"];
@@ -33,6 +34,14 @@ int testrun(List rPm, List rLPm){
   Pm.Sides = rPm["Sides"];
   Pm.NumLayers = rPm["NumLayers"];
   Pm.NewLand = rPm["NewLand"];
+  Pm.SurvSlope = rPm["SurvSlope"];
+  Pm.MaxAgeClass = rPm["MaxAgeClass"];
+  ageparms = Rcpp::as<Rcpp::NumericVector>(rPm["DeathRate"]);
+  for (i=0; i<MAXAGECLASS; i++) Pm.DeathRate[i] = ageparms[i];
+  //printf("%f %f %f %f %f", Pm.DeathRate[0], Pm.DeathRate[1], Pm.DeathRate[2], Pm.DeathRate[3], Pm.DeathRate[4]);
+  ageparms = Rcpp::as<Rcpp::NumericVector>(rPm["BirthRate"]);
+  for (i=0; i<MAXAGECLASS; i++) Pm.BirthRate[i] = ageparms[i];
+
   //
   L1 = init_rep(&Pm,&LPm);
   L2 = close_rep(&Pm,&LPm);
