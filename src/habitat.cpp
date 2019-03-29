@@ -959,31 +959,31 @@ int close_rep(Parameters *Pm, LParameters *LPm)
 // }
 //
 void MakeDTrnsfrmTable(Parameters *Pm, float HabitatPivot){
-    float curdeathrate;
-    float temp;
-    int i,j;
-    if (Pm->SurvSlope > 0.0001)
-   {
-        for(i=0;i<=Pm->MaxAgeClass;i++){
-            curdeathrate = (float) log((double) Pm->DeathRate[i]/(1-Pm->DeathRate[i]));
-            for(j=0;j<=MAXHAB;j++){
-                temp = -Pm->SurvSlope*(((float)j/HabitatPivot) - 1);    /* habitat values less than AVGHAB are positive */
-                temp += curdeathrate;           /* add in the transformed survival rate */
-                temp = (float) exp((double) temp);                  /* begin backtransformation */
-                DTable[i][j] = temp / (temp + 1);   /* complete backtransformation and store */
-            }
-        }
-   }
-   else
-    {
-        for(i=0;i<Pm->MaxAgeClass;i++){
-            for(j=0;j<MAXHAB;j++){
-                temp = Pm->DeathRate[i];//DTable[i][j]; //=
-            }
-        }
+  float curdeathrate;
+  float temp;
+  int i,j;
+  if (Pm->SurvSlope > 0.0001)
+  {
+    for(i=0;i<=Pm->MaxAgeClass;i++){
+      curdeathrate = (float) log((double) Pm->DeathRate[i]/(1-Pm->DeathRate[i]));
+      for(j=0;j<=MAXHAB;j++){
+        temp = -Pm->SurvSlope*(((float)j/HabitatPivot) - 1);    /* habitat values less than AVGHAB are positive */
+        temp += curdeathrate;           /* add in the transformed survival rate */
+        temp = (float) exp((double) temp);                  /* begin backtransformation */
+        DTable[i][j] = temp / (temp + 1);   /* complete backtransformation and store */
+      }
     }
+  }
+  else
+  {
+    for(i=0;i<Pm->MaxAgeClass;i++){
+      for(j=0;j<MAXHAB;j++){
+        temp = Pm->DeathRate[i];//DTable[i][j]; //=
+      }
+    }
+  }
 
-    return;
+  return;
 }
 //
 // void MakeBTrnsfrmTable(Parameters *Pm, float HabitatPivot){
