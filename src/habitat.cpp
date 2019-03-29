@@ -30,7 +30,7 @@
 // *************************************************************************/
 #include <stdlib.h>
 #include <stdio.h>
-// #include <time.h>
+#include <time.h>
 // #include <math.h>
 #include "util2019.h"
 #include "habitat.h"
@@ -117,9 +117,20 @@ float AvgHabitat = 0;
 //
 int init_rep(Parameters *Pm, LParameters *LPm){
   int ret_val;
+  unsigned randseed;
+  time_t t;
+
+  if (Pm->UseRandomSeed)
+    randseed = Pm->RandomSeed;
+  else
+    randseed = (unsigned) time(&t);
+
+  /* set the seed */
+  sgenrand(randseed);
+
   if (((Pm->Run == 1)&&(Pm->Rep == 0)) || (Pm->NewLand))
   {
-      AdaBlock = InitLandScape(Pm,LPm);
+    AdaBlock = InitLandScape(Pm,LPm);
   }
   printf("Landscape initialized\n");
   AvgHabitat = LayerStats(Pm->Run, Pm->Rep,Pm->Qpivot,AdaBlock->H[0],Pm->Xsize,Pm->Ysize);
@@ -149,7 +160,7 @@ int init_rep(Parameters *Pm, LParameters *LPm){
   // if (Pm->SampleCohort) sample_cohort(RESETCOHORT,NULL,Pm);
 
   /* obtain stratified sample of landscape always, whether used in habitat
-      sampling or not */
+   sampling or not */
   // switch(Pm->Stratify){
   //     case STRATIFIED : StratifySites(AdaBlock,Pm); break;
   //     case REGULAR : RegularSites(AdaBlock,Pm); break;

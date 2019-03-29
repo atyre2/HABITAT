@@ -27,7 +27,7 @@ LParm <- list(
 )
 
 Parm <- list(
-  UseRandomSeed  = 0L,
+  UseRandomSeed  = 1L,
   RandomSeed = 9204802L,
   competition = 0L,
   invasion = 0L,
